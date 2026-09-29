@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长沙·慢慢发生 / CHANGSHA EDITION</title>
+<style>
+:root{--bg:#f2efe7;--ink:#20201d;--red:#e84b35;--yellow:#f4c84b;--green:#536b4d;--muted:#77736b;--line:#c9c4b8}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman","PingFang SC","Microsoft YaHei",serif;overflow-x:hidden}button,a{font:inherit;color:inherit}a{text-decoration:none}img{width:100%;height:100%;object-fit:cover;display:block}
+.cursor{position:fixed;z-index:99;width:12px;height:12px;border:1px solid #111;border-radius:50%;pointer-events:none;mix-blend-mode:multiply;transition:transform .15s}
+.topbar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4vw;font:11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.nav{height:88px;padding:0 4vw;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:rgba(242,239,231,.94);position:sticky;top:0;z-index:20}
+.brand{font-size:27px;letter-spacing:-.05em}.brand small{font:10px Arial,sans-serif;display:block;letter-spacing:.25em;margin-top:2px}.navlinks{display:flex;gap:32px;font:12px Arial,sans-serif}.navlinks a{padding-bottom:5px;border-bottom:1px solid transparent}.navlinks a:hover{border-color:var(--ink)}
+.hero{min-height:calc(100vh - 130px);display:grid;grid-template-columns:55% 45%;border-bottom:1px solid var(--line)}
+.hero-left{padding:8vw 5vw 5vw;display:flex;flex-direction:column;justify-content:space-between}.issue{font:11px Arial,sans-serif;letter-spacing:.18em;color:var(--red)}
+.hero h1{font-size:clamp(70px,10.5vw,155px);font-weight:400;line-height:.78;letter-spacing:-.08em;margin:50px 0}.hero h1 i{color:var(--red);font-style:italic}.intro{max-width:480px;font-size:18px;line-height:1.8}.hero-right{position:relative;border-left:1px solid var(--line);padding:35px}.hero-photo{height:75%;margin-top:2%;position:relative;overflow:hidden}.hero-photo img{filter:saturate(.82)}.photo-label{position:absolute;left:18px;bottom:18px;background:var(--bg);padding:8px 12px;font:10px Arial,sans-serif;letter-spacing:.12em}.stamp{position:absolute;right:20px;top:65px;border:1px solid var(--red);color:var(--red);width:100px;height:100px;border-radius:50%;display:grid;place-items:center;text-align:center;font:11px Arial,sans-serif;transform:rotate(12deg);background:rgba(242,239,231,.7)}
+.scroll{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+.marquee{background:var(--red);color:#fff;overflow:hidden;border-bottom:1px solid var(--ink)}.marquee-track{white-space:nowrap;display:inline-block;padding:13px 0;font:bold 13px Arial,sans-serif;letter-spacing:.1em;animation:mar 22s linear infinite}@keyframes mar{to{transform:translateX(-50%)}}
+.section{padding:110px 5vw;border-bottom:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:65px}.num{font:11px Arial,sans-serif;color:var(--red);letter-spacing:.15em}.section h2{font-size:clamp(48px,7vw,100px);font-weight:400;line-height:.86;letter-spacing:-.07em;margin-top:15px}.lead{font-size:17px;line-height:1.9;max-width:470px;align-self:end}
+.editorial-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:start}.large-photo{height:650px;position:relative}.large-photo:after{content:"";position:absolute;inset:12px -12px -12px 12px;border:1px solid var(--red);z-index:-1}.caption{margin-top:16px;font:10px Arial,sans-serif;letter-spacing:.12em;color:var(--muted)}.notes{padding-top:70px}.note{border-top:1px solid var(--line);padding:25px 0;display:grid;grid-template-columns:70px 1fr;gap:20px}.note:last-child{border-bottom:1px solid var(--line)}.note b{font:11px Arial,sans-serif;color:var(--red)}.note h3{font-size:28px;font-weight:400;margin-bottom:7px}.note p{font-size:14px;line-height:1.8;color:#5d5951}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{cursor:pointer}.card-photo{height:420px;overflow:hidden}.card-photo img{transition:.7s;filter:saturate(.8)}.card:hover img{transform:scale(1.05);filter:saturate(1)}.card-meta{display:flex;justify-content:space-between;margin-top:13px;font:10px Arial,sans-serif;color:var(--muted);letter-spacing:.1em}.card h3{font-size:31px;font-weight:400;margin-top:8px}
+.green{background:var(--green);color:#f4f0e7}.green .num{color:var(--yellow)}.green .lead{color:#ddd}.route{display:grid;grid-template-columns:.8fr 1.2fr;border-top:1px solid rgba(255,255,255,.35)}.route-list{border-right:1px solid rgba(255,255,255,.35)}.route-item{padding:26px 20px;border-bottom:1px solid rgba(255,255,255,.35);display:grid;grid-template-columns:45px 1fr;cursor:pointer;transition:.25s}.route-item:hover,.route-item.active{background:var(--yellow);color:var(--ink)}.route-item span{font:11px Arial,sans-serif}.route-item strong{font-size:24px;font-weight:400}.route-show{min-height:500px;position:relative}.route-show img{position:absolute;inset:0}.route-show:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 55%)}.route-copy{position:absolute;z-index:2;bottom:30px;left:30px}.route-copy small{font:10px Arial,sans-serif;letter-spacing:.15em}.route-copy h3{font-size:55px;font-weight:400;line-height:.9;margin-top:10px}
+.food{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.food-copy h2{margin-bottom:30px}.food-photo{height:600px;position:relative}.food-photo span{position:absolute;right:15px;top:15px;background:var(--yellow);padding:9px 12px;font:10px Arial,sans-serif}.food-list{margin-top:30px}.food-row{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:17px 0}.food-row strong{font-size:21px;font-weight:400}.food-row em{font:11px Arial,sans-serif;color:var(--muted);font-style:normal}
+.plan{background:var(--yellow);display:grid;grid-template-columns:1fr 1fr;padding:0}.plan > div{padding:55px;border-right:1px solid var(--ink)}.plan h2{font-size:58px;font-weight:400;line-height:.9}.choices{display:grid;gap:10px;margin:28px 0}.choices label{border-bottom:1px solid rgba(0,0,0,.3);padding:12px 0;font:13px Arial,sans-serif}.choices input{margin-right:10px}.generate{border:1px solid var(--ink);background:var(--ink);color:#fff;padding:13px 20px;cursor:pointer}.generate:hover{background:var(--red);border-color:var(--red)}#planResult{font-size:17px;line-height:1.9;min-height:170px}
+.footer{padding:70px 5vw;background:var(--ink);color:#eee}.footer h2{font-size:clamp(75px,13vw,190px);font-weight:400;line-height:.75;letter-spacing:-.09em}.footer-row{display:flex;justify-content:space-between;border-top:1px solid #555;margin-top:65px;padding-top:18px;font:10px Arial,sans-serif;color:#aaa}
+.modal{display:none;position:fixed;z-index:50;inset:0;background:rgba(0,0,0,.65);place-items:center;padding:20px}.modal.open{display:grid}.modal-box{width:min(650px,100%);background:var(--bg);padding:45px;border:1px solid var(--ink);position:relative}.close{position:absolute;right:15px;top:10px;border:0;background:none;font-size:28px;cursor:pointer}.modal-box h3{font-size:52px;font-weight:400;letter-spacing:-.06em}.modal-box p{margin:20px 0;line-height:1.9}.modal-box ul{padding-left:20px;line-height:2;font:13px Arial,sans-serif}
+.reveal{opacity:0;transform:translateY(45px);transition:.9s}.reveal.show{opacity:1;transform:none}
+@media(max-width:800px){.topbar{display:none}.nav{height:65px;padding:0 6vw}.navlinks{display:none}.hero{grid-template-columns:1fr}.hero-left{min-height:650px;padding:70px 7vw 35px}.hero h1{font-size:23vw;margin:55px 0}.intro{font-size:16px}.hero-right{border-left:0;border-top:1px solid var(--line);padding:25px}.hero-photo{height:480px}.stamp{top:35px}.section{padding:75px 7vw}.section-head{display:block}.lead{margin-top:30px}.editorial-grid,.food,.plan{grid-template-columns:1fr}.large-photo{height:480px}.notes{padding-top:45px}.cards{grid-template-columns:1fr}.card-photo{height:420px}.route{grid-template-columns:1fr}.route-list{border-right:0}.route-show{min-height:430px}.route-copy h3{font-size:40px}.food-photo{height:460px;order:-1}.plan>div{border-right:0;border-bottom:1px solid var(--ink);padding:40px 7vw}.footer-row{display:block}.footer-row span{display:block;margin-top:8px}}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="topbar"><span>CHANGSHA / TRAVEL EDITION 2026</span><span>山水与烟火之间</span></div>
+<nav class="nav"><a class="brand" href="#home">长沙.<small>CHANGSHA SLOW GUIDE</small></a><div class="navlinks"><a href="#story">城市故事</a><a href="#places">去处</a><a href="#routes">路线</a><a href="#food">味道</a></div></nav>
+
+<section class="hero" id="home">
+<div class="hero-left reveal"><div><div class="issue">NO. 01 / CITY NOTES</div><h1>慢慢<br><i>长沙</i></h1><p class="intro">不把长沙当作一个“打卡清单”。沿着江边走，穿过老街，去山里坐一会儿——这座城市的好看，常常发生在计划之外。</p></div><div class="scroll">↓ SCROLL TO EXPLORE</div></div>
+<div class="hero-right reveal"><div class="stamp">LOCAL<br>MOOD<br>ONLY</div><div class="hero-photo"><img src="https://img2.voc.com.cn/9/2026/04/13/04f581fafdafaaff8e3ac0b8e945c1be7f03386c1776046817.jpg" alt="长沙橘子洲实拍"><div class="photo-label">ORANGE ISLAND / PHOTO ESSAY</div></div></div>
+</section>
+
+<div class="marquee"><div class="marquee-track">湘江边散步　·　岳麓山慢走　·　太平街吃一圈　·　五一广场看夜色　·　把一天留给长沙　·　湘江边散步　·　岳麓山慢走　·　</div></div>
+
+<section class="section" id="story">
+<div class="section-head reveal"><div><div class="num">01 / A CITY IN FOUR MOVEMENTS</div><h2>城市不是<br>景点的总和。</h2></div><p class="lead">长沙有一种很特别的松弛感：山在城里，江在城边，老街和商业中心只隔几站路。真正值得记录的，是人在其中怎么生活。</p></div>
+<div class="editorial-grid"><div class="reveal"><div class="large-photo"><img src="https://newbbs-fd.zol-img.com.cn/t_s1200x5000/g4/M07/01/04/Cg-4zFT763aIEJxLAA9mLIHg5KAAAWTfwL-lZkAD2ZE461.jpg" alt="长沙江阁实拍"></div><div class="caption">01 / RIVER & ARCHITECTURE — 长沙城市实拍</div></div>
+<div class="notes reveal"><div class="note"><b>01</b><div><h3>江风</h3><p>沿湘江走一段，不需要目的地。傍晚的风会把城市的速度慢下来。</p></div></div><div class="note"><b>02</b><div><h3>山色</h3><p>岳麓山把一整片绿色嵌进城市，适合在行程中留出半天空白。</p></div></div><div class="note"><b>03</b><div><h3>烟火</h3><p>真正的长沙味道藏在早餐、夜宵和街边小店里，而不只是一张菜单。</p></div></div></div></div>
+</section>
+
+<section class="section" id="places">
+<div class="section-head reveal"><div><div class="num">02 / FIELD NOTES</div><h2>四个<br>城市切片。</h2></div><p class="lead">把熟悉的景点换一种观看方式：不是“到此一游”，而是看光线、声音、人群和建筑如何一起组成长沙。</p></div>
+<div class="cards">
+<article class="card reveal" onclick="openPlace('橘子洲','湘江中央的城市留白','江风、草地与城市天际线，适合下午到日落。')"><div class="card-photo"><img src="https://img2.voc.com.cn/9/2026/04/13/04f581fafdafaaff8e3ac0b8e945c1be7f03386c1776046817.jpg"></div><div class="card-meta"><span>RIVER / 01</span><span>LONG WALK</span></div><h3>橘子洲</h3></article>
+<article class="card reveal" onclick="openPlace('岳麓山','城市里的绿色缓冲区','从山脚慢慢走到爱晚亭，把手机放低一点。')"><div class="card-photo"><img src="https://ecywang.com/pic/%E5%B2%B3%E9%BA%93%E5%B1%B1%E7%88%B1%E6%99%9A%E4%BA%AD/"></div><div class="card-meta"><span>HILL / 02</span><span>SLOW WALK</span></div><h3>岳麓山</h3></article>
+<article class="card reveal" onclick="openPlace('五一广场','城市夜生活的高密度样本','商业、人群、灯光，在这里形成长沙的另一种节奏。')"><div class="card-photo"><img src="https://dimg04.c-ctrip.com/images/1mh0e12000ayut0r6B5DF_W_640_10000.jpg?proc=autoorient"></div><div class="card-meta"><span>CITY / 03</span><span>AFTER DARK</span></div><h3>五一广场</h3></article>
+</div>
+</section>
+
+<section class="section green" id="routes">
+<div class="section-head reveal"><div><div class="num">03 / SLOW ROUTES</div><h2>给长沙<br>留一点时间。</h2></div><p class="lead">选择一条路线，不追求“全部玩完”。把几个地点串起来，然后慢下来。</p></div>
+<div class="route reveal"><div class="route-list">
+<div class="route-item active" onclick="route(0,this)"><span>01</span><strong>江边散步日</strong></div>
+<div class="route-item" onclick="route(1,this)"><span>02</span><strong>山与书院</strong></div>
+<div class="route-item" onclick="route(2,this)"><span>03</span><strong>老街烟火</strong></div>
+<div class="route-item" onclick="route(3,this)"><span>04</span><strong>城市夜游</strong></div></div>
+<div class="route-show"><img id="routeImage" src="https://img2.voc.com.cn/9/2026/04/13/04f581fafdafaaff8e3ac0b8e945c1be7f03386c1776046817.jpg"><div class="route-copy"><small id="routeSmall">ROUTE 01 / RIVER</small><h3 id="routeTitle">橘子洲 → 湘江风光带</h3></div></div></div>
+</section>
+
+<section class="section" id="food">
+<div class="food"><div class="food-copy reveal"><div class="num">04 / TASTE OF CHANGSHA</div><h2>味道<br>是另一张地图。</h2><p class="lead">早上一碗粉，中午一盘小炒，晚上沿街找点热乎的。长沙的味道不需要复杂介绍。</p><div class="food-list"><div class="food-row"><strong>长沙米粉</strong><em>BREAKFAST / 08:00</em></div><div class="food-row"><strong>小炒黄牛肉</strong><em>LUNCH / 12:30</em></div><div class="food-row"><strong>臭豆腐</strong><em>STREET / 18:00</em></div><div class="food-row"><strong>糖油粑粑</strong><em>SWEET / ANYTIME</em></div></div></div>
+<div class="food-photo reveal"><img src="https://dimg04.c-ctrip.com/images/1mh0e12000ayut0r6B5DF_W_640_10000.jpg?proc=autoorient"><span>STREET MOOD / 实拍素材</span></div></div>
+</section>
+
+<section class="section" style="padding-bottom:0"><div class="section-head reveal"><div><div class="num">05 / MAKE A DAY</div><h2>今天，<br>想怎么逛？</h2></div><p class="lead">勾选几个关键词，生成一份简单的长沙漫游提案。</p></div>
+<div class="plan reveal"><div><h2>BUILD<br>YOUR<br>DAY.</h2><div class="choices"><label><input type="checkbox" value="湘江边散步">湘江边散步</label><label><input type="checkbox" value="岳麓山慢走">岳麓山慢走</label><label><input type="checkbox" value="老街吃一圈">老街吃一圈</label><label><input type="checkbox" value="夜游五一">夜游五一</label></div><button class="generate" onclick="makeDay()">生成今日提案 →</button></div><div><div class="num">YOUR EDITION</div><p id="planResult">还没有选择。<br><br>先从左边挑几个你感兴趣的城市片段。</p><button class="generate" onclick="openPlace('出行提示','给行程留白','热门景区开放、预约和客流信息可能变化，正式出行前请查看官方渠道。')">打开出行提示</button></div></div></section>
+
+<footer class="footer"><h2>慢一点，<br>长沙在这里。</h2><div class="footer-row"><span>© 2026 CHANGSHA SLOW GUIDE</span><span>课程作业概念网站 / 网络公开实拍素材仅作视觉展示</span></div></footer>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div class="num">CITY NOTE</div><h3 id="modalTitle"></h3><p id="modalText"></p><ul id="modalList"></ul></div></div>
+<script>
+const data=[
+["RIVER / 01","橘子洲 → 湘江风光带","https://img2.voc.com.cn/9/2026/04/13/04f581fafdafaaff8e3ac0b8e945c1be7f03386c1776046817.jpg"],
+["HILL / 02","岳麓山 → 爱晚亭 → 岳麓书院","https://ecywang.com/pic/%E5%B2%B3%E9%BA%93%E5%B1%B1%E7%88%B1%E6%99%9A%E4%BA%AD/"],
+["STREET / 03","太平街 → 坡子街 → 黄兴路","https://dimg04.c-ctrip.com/images/1mh0e12000ayut0r6B5DF_W_640_10000.jpg?proc=autoorient"],
+["NIGHT / 04","五一广场 → 国金中心 → 杜甫江阁","https://newbbs-fd.zol-img.com.cn/t_s1200x5000/g4/M07/01/04/Cg-4zFT763aIEJxLAA9mLIHg5KAAAWTfwL-lZkAD2ZE461.jpg"]
+];
+function route(i,el){document.querySelectorAll('.route-item').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.getElementById('routeSmall').textContent='ROUTE '+data[i][0].slice(0,2)+' / '+data[i][0].slice(5);document.getElementById('routeTitle').textContent=data[i][1];document.getElementById('routeImage').src=data[i][2]}
+function openPlace(t,x,y){document.getElementById('modalTitle').textContent=t;document.getElementById('modalText').textContent=x;document.getElementById('modalList').innerHTML='<li>'+y+'</li><li>建议：把时间安排得松一点，体验会更完整。</li><li>正式出行前请查看景区官方开放及预约信息。</li>';document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+function makeDay(){let a=[...document.querySelectorAll('.choices input:checked')].map(x=>x.value);document.getElementById('planResult').innerHTML=a.length?'今天的长沙：<strong>'+a.join(' · ')+'</strong><br><br>建议从白天的江边或山里开始，把美食放到傍晚，夜色留给城市中心。不要把每一分钟排满。':'先选择几个你想体验的内容。'}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(x=>io.observe(x));
+document.addEventListener('mousemove',e=>{let c=document.getElementById('cursor');c.style.left=e.clientX-6+'px';c.style.top=e.clientY-6+'px'})
+</script>
+</body></html>
